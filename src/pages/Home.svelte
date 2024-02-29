@@ -143,35 +143,34 @@
     >
       <Fa icon={faPlus} color="#afaeae" size="3x" />
     </div>
+    {#each notes as note (note.id)}
+      <Note
+        {...note}
+        on:click={() => {
+          openEditNote();
+        }}
+        on:toggleFavorite={toggleFavorite}
+      />
+    {/each}
+
+    {#if showEditModal}
+      <EditNoteModal
+        {...noteToEdit}
+        on:save={saveNote}
+        on:delete={openDeleteNote}
+        on:close={closeEditModal}
+      />
+    {/if}
+
+    {#if showDeleteModal}
+      <DeleteNoteModal
+        {...noteToDelete}
+        on:delete={deleteNote}
+        on:close={closeDeleteModal}
+      />
+    {/if}
   </div>
 </main>
-
-{#each notes as note (note.id)}
-  <Note
-    {...note}
-    on:click={() => {
-      openEditNote();
-    }}
-    on:toggleFavorite={toggleFavorite}
-  />
-{/each}
-
-{#if showEditModal}
-  <EditNoteModal
-    {...noteToEdit}
-    on:save={saveNote}
-    on:delete={openDeleteNote}
-    on:close={closeEditModal}
-  />
-{/if}
-
-{#if showDeleteModal}
-  <DeleteNoteModal
-    {...noteToDelete}
-    on:delete={deleteNote}
-    on:close={closeDeleteModal}
-  />
-{/if}
 
 <style lang="scss">
   main {
@@ -181,27 +180,25 @@
     box-sizing: border-box;
   }
 
-  .note {
-    &Container {
+  .noteContainer {
+    display: flex;
+
+    &__add {
+      background-color: #d6d4d4;
       display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+      border: 4px dashed #a29f9f;
+      width: 144px;
+      height: 189px;
+      color: #a29f9f;
+      margin-right: 15px;
+      padding: 15px;
+      border-radius: 10px;
 
-      &__add {
-        background-color: #d6d4d4;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: none;
-        border: 4px dashed #a29f9f;
-        width: 144px;
-        height: 189px;
-        color: #a29f9f;
-        margin-right: 15px;
-        padding: 15px;
-        border-radius: 10px;
-
-        &:hover {
-          background-color: #c5c5c5;
-        }
+      &:hover {
+        background-color: #c5c5c5;
       }
     }
   }

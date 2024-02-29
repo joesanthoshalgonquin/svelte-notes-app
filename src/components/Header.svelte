@@ -27,7 +27,7 @@
         margin-right: 5px;
       }
 
-      .title {
+      &__title {
         font-weight: bold;
       }
     }
